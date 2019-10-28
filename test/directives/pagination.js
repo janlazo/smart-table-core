@@ -83,3 +83,10 @@ test('pagination directive accepts falsy value for page size', t => {
     table.dispatch(evts.SUMMARY_CHANGED, {page: 1, size: 0});
     t.deepEqual(dir.state().pageCount, 1);
 });
+test('pagination directive accepts falsy value for filteredCount', t => {
+    const table = fakeTable({page: 1, size: 1});
+    const dir = pagination({table});
+    t.deepEqual(dir.state().pageCount, 1);
+    table.dispatch(evts.SUMMARY_CHANGED, {page: 1, size: 1, filteredCount: 0});
+    t.deepEqual(dir.state().pageCount, 1);
+});

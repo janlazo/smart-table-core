@@ -40,7 +40,7 @@ export interface PaginationDirectiveConfiguration<T> {
 export const paginationDirective = <T>({table}: PaginationDirectiveConfiguration<T>): PaginationDirective => {
     let {slice: {page: currentPage, size: currentSize}} = table.getTableState();
     let itemListLength = table.filteredCount;
-    let pageCount = currentSize ? Math.ceil(itemListLength / currentSize) : 1;
+    let pageCount = currentSize && itemListLength ? Math.ceil(itemListLength / currentSize) : 1;
 
     const proxy = <PaginationProxy>sliceListener({emitter: table});
 
@@ -73,7 +73,7 @@ export const paginationDirective = <T>({table}: PaginationDirectiveConfiguration
         currentPage = p;
         currentSize = s;
         itemListLength = filteredCount;
-        pageCount = currentSize ? Math.ceil(itemListLength / currentSize) : 1;
+        pageCount = currentSize && itemListLength ? Math.ceil(itemListLength / currentSize) : 1;
     });
 
     return directive;
